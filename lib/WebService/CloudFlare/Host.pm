@@ -4,6 +4,9 @@ use Try::Tiny;
 use Data::Dumper;
 use LWP;
 
+our $VERSION = "000100"; # 0.1.0
+$VERSION = eval $VERSION;
+
 has 'host_key' => (
     is          => 'rw',
     isa         => 'Str',
