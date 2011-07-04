@@ -136,13 +136,58 @@ sub _build_ua {
 
 =head1 NAME
 
-WebService::CloudFlare::Host - 
+WebService::CloudFlare::Host - A client API For Hosting Partners 
 
 =head1 VERSION
 
+000100 (0.1.0)
+
 =head1 SYNOPSIS
 
+    my $CloudFlare = WebService::CloudFlare::Host->new(
+        host_key => 'cloudflare hostkey',
+        timeout  => 30,
+    );
+
+    my $response = eval { $CloudFlare->call('UserCreate',
+        email => 'richard.castle@hyperionbooks.com',
+        pass  => 'ttekceBetaK',
+    ) };
+
+    if ( $@ ) {
+        die "Error: in " . $@->function . ": " . $@->message;
+    }
+
+
+    printf("Got API Keys: User Key: %s, User API Key: %s",
+        $response->user_key, $response->api_key
+    );
+
 =head1 DESCRIPTION
+
+WebService::CloudFlare::Host is a client side API library
+to make using CloudFlare simple for hosting providers.
+
+It gives a simple interface for making API calls, getting
+response objects, and implementing additional API calls.
+
+All API calls have a Request and Response object that define
+the accepted information for that call.
+
+=head1 METHODS
+
+The only method used is C<call($api_call, %arguments)>.
+
+When making an API call the first argument defines the API request
+to load.  This is loaded from Request::.  Additional arguments are
+passed as-is to the Request Object.
+
+Once the object has been made, an HTTP call to the CloudFlare API
+is made.  The JSON returned is used to construct a Response object
+loaded from Response:: with the same name as the Request object.
+
+C<call> dies on error giving a WebService::CloudFlare::Host::Exception
+object and should be run in an eval or with Try::Tiny.
 
 =head1 API CALLS
 
