@@ -178,7 +178,7 @@ the accepted information for that call.
 
 The only method used is C<call($api_call, %arguments)>.
 
-When making an API call the first argument defines the API request
+When making an API call, the first argument defines the API request
 to load.  This is loaded from Request::.  Additional arguments are
 passed as-is to the Request Object.
 
@@ -186,7 +186,7 @@ Once the object has been made, an HTTP call to the CloudFlare API
 is made.  The JSON returned is used to construct a Response object
 loaded from Response:: with the same name as the Request object.
 
-C<call> dies on error giving a WebService::CloudFlare::Host::Exception
+C<call> dies on error, giving a WebService::CloudFlare::Host::Exception
 object and should be run in an eval or with Try::Tiny.
 
 =head1 STANDARD OBJECT METHODS
@@ -203,17 +203,17 @@ The following methods are avilable on standard Response objects.
 
 =item result
 
-The result sent from the API.  'success' or 'error'.
+The result sent from the API: 'success' or 'error'.
 
 =item message
 
 If the result is 'error', a message will be set with a user-readable explaination
-of the error.  Otherwise this method will not exist.
+of the error; otherwise, this method will not exist.
 
 =item code
 
 If the result is 'error', a code will be set.  This error can be found at
-L<http://www.cloudflare.com/docs/host-api.html>.  If there is no 
+L<http://www.cloudflare.com/docs/host-api.html>.
 
 =back
 
@@ -239,18 +239,18 @@ The request uses the following parameters:
 
 =item email 
 
-The email address that the end-user can use to sign in to
+The email address that the end-user can use to sign into
 the CloudFlare service.
 
 =item pass
 
-The password the user can use to sign in to the CloudFlare service.
+The password the user can use to sign into the CloudFlare service.
 This should not be recorded on the Hosting Provider's side.
 
 =item user
 
 A username for the user.  This is used in saluations and emails from
-CloudFlare, and has no bearing in the rest of the API.
+CloudFlare.  It has no bearing in the rest of the API.
 
 =item unique_id
 
@@ -259,7 +259,7 @@ user's email address).
 
 =item clobber
 
-When set to 1 a user's unique_id can be replaced with a new unique_id.
+When set to 1, a user's unique_id can be replaced with a new unique_id.
 
 =back 
 
@@ -276,8 +276,8 @@ The response sets the following methods:
 
 =item api_key
 
-This API key can be used to act as if API calls are being made by the
-user through the normal CloudFlare User API.
+This API key allows a hosting provider to act as the user.  All user
+API requests can be completed with this key.
 
 =item email
 
@@ -324,7 +324,7 @@ with CloudFlare.
 =item pass
 
 The password the user uses to login to CloudFlare.  This should
-not be stored on the hosting provider's side.
+not be stored on a hosting provider's side.
 
 =item unique_id
 
@@ -332,7 +332,7 @@ A unique_id that may be used to perform UserLookup API calls.
 
 =item clobber
 
-If true the unique_id can be clobbered.
+If true, the unique_id can be clobbered.
 
 =back 
 
@@ -344,8 +344,8 @@ The response sets the following methods:
 
 =item api_key
 
-This API key can be used to act as if API calls are being made by the
-user through the normal CloudFlare User API.
+This API key allows a hosting provider to act as the user.  All user
+API requests can be completed with this key.
 
 =item email
 
@@ -399,8 +399,8 @@ The response sets the following methods:
 
 =item api_key
 
-This API key can be used to act as if API calls are being made by the
-user through the normal CloudFlare User API.
+This API key allows a hosting provider to act as the user.  All user
+API requests can be completed with this key.
 
 =item email
 
@@ -477,6 +477,8 @@ The response sets the following methods:
 
 =item zone_name
 
+The name of the domain.
+
 =item resolving
 
 The origin server that has been recorded.  The same as the one
@@ -529,7 +531,7 @@ The response sets the following methods:
 
 =item zone_name
 
-The name of the zone from thr Request.
+The name of the zone from the Request.
 
 =item zone_deleted
 
@@ -592,7 +594,7 @@ True if the zone exists in the CloudFlare service.
 
 =item zone_hosted
 
-True is the zone is hosted by this user_key.
+True if the zone is hosted by this user_key.
 
 =back
 
