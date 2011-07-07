@@ -65,10 +65,6 @@ sub call {
         );
     };
 
-    # print Dumper $http_res;
-    #print "------------------------------------\n";
-    #print $http_res->content;
-    
     # Create a response object to send back to the user.
     my $res = try {
         $self->_create_response( $class, $http_res );
@@ -85,6 +81,15 @@ sub throw_exception {
 
     # We installed ::Exception with the package, it's here.
     Class::MOP::load_class('WebService::CloudFlare::Host::Exception');
+
+    # Let's get to the bottom of the exception...
+    my $exception;
+    while ( $message->isa( 'WebService::CloudFlare::Host::Exception' ) ) {
+        $exception = $message;
+        $message = $message->message;
+    }
+    die $exception if $exception;
+
 
     die WebService::CloudFlare::Host::Exception->new( 
         message  => $message,
@@ -116,7 +121,6 @@ sub _create_response {
     
     try {
         Class::MOP::load_class("WebService::CloudFlare::Host::Response::$class");
-        print "Loaded class";
     } catch {
         $self->throw_exception( $_, "Loading request class: $class", 
             "Class::MOP::load_class", 
