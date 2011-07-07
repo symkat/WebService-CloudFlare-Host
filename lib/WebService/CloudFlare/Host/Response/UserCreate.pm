@@ -2,7 +2,7 @@ package WebService::CloudFlare::Host::Response::UserCreate;
 use Moose;
 use JSON;
 
-sub map {
+sub res_map {
     return (
         'result'        => 'result',
         'msg'           => 'msg',
@@ -30,7 +30,7 @@ sub BUILDARGS {
         unless $http->code == 200;
 
     my $json = decode_json( $http->content );
-    my %map = $class->map;
+    my %map = $class->res_map;
     my $args = {};
 
     OUTER: for my $key ( keys %map ) {
