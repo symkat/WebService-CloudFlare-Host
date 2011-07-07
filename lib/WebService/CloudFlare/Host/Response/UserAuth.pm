@@ -1,11 +1,10 @@
-package WebService::CloudFlare::Host::Response::UserCreate;
+package WebService::CloudFlare::Host::Response::UserAuth;
 use Moose;
 with 'WebService::CloudFlare::Host::Role::Response';
 
 sub res_map {
     return (
         'result'        => 'result',
-        'code'          => 'err_code',
         'msg'           => 'msg',
         'action'        => 'request:act',
         'email'         => 'response:cloudflare_email',
@@ -16,10 +15,11 @@ sub res_map {
 }
 
 
-has [qw/ result action /]    
+
+has [qw/ result action /] 
     => ( is => 'rw', isa => 'Str', required => 1 );
 
-has [qw/ msg email user_key username unique_id code /]
+has [qw/ msg email user_key unique_id username /] 
     => ( is => 'rw', isa => 'Str', required => 0 );
 
 1;

@@ -24,10 +24,10 @@ has 'action' => (
 );
 
 
-has 'email'     => ( is => 'ro', isa => 'Str', required => 1);
-has 'pass'      => ( is => 'ro', isa => 'Str', required => 1);
-has 'user'      => ( is => 'ro', isa => 'Str', required => 0);
-has 'unique_id' => ( is => 'ro', isa => 'Str', required => 0);
-has 'clobber'   => ( is => 'ro', isa => 'Str', required => 0);
+has [qw/ email pass /] 
+    => (is => 'ro', isa => 'Str', required => 1);
+    
+has [qw/user unique_id clobber/] 
+    => (is => 'ro', isa => 'Str', required => 0);
 
 1;
