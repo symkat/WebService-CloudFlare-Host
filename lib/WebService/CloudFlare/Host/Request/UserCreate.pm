@@ -1,7 +1,8 @@
 package WebService::CloudFlare::Host::Request::UserCreate;
 use Moose;
+with 'WebService::CloudFlare::Host::Role::Request';
 
-has 'map' => (
+has 'req_map' => (
     is => 'ro',
     isa => 'HashRef[Str]',
     init_arg => undef,
