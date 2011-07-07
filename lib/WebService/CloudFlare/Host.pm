@@ -124,7 +124,7 @@ sub _create_response {
         );
     };
 
-    return "WebService::CloudFlare::Host::Response::$class"->new( http => $http );
+    return "WebService::CloudFlare::Host::Response::$class"->new( $http );
 
 }
 
