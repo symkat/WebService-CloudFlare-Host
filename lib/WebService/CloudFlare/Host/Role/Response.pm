@@ -1,6 +1,7 @@
 package WebService::CloudFlare::Host::Role::Response;
 use Moose::Role;
 use JSON;
+use Data::Dumper;
 
 requires 'res_map';
 
@@ -31,9 +32,13 @@ sub BUILDARGS {
 
 sub BUILD {
     my ( $self ) = @_;
-    if ( ! $ENV{'CLOUDFLARE_TRACE'} ) {
-        $self->unset_json;
+    if ( $ENV{'CLOUDFLARE_TRACE'} ) {
+        print STDERR "<<< BEGIN CLOUDFLARE TRACE >>>\n";
+        print STDERR "\t-> API Response ($self)\n";
+        print STDERR Dumper $self->__JSON__;
+        print STDERR "<<< END   CLOUDFLARE TRACE >>>\n";
     }
+    $self->unset_json;
 }
 
 has '__JSON__' => ( 
@@ -43,8 +48,7 @@ has '__JSON__' => (
 );
 
 has [qw/ result action /] => ( is => 'rw', isa => 'Str', required => 1 );
-
-has 'code' => ( is => 'ro', isa => 'Int', required => 0 );
+has [qw/ msg code /]      => ( is => 'rw', isa => 'Str', required => 0 );
 
 sub add_map_defaults {
     my ( $class, %map ) = @_;

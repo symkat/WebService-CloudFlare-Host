@@ -7,6 +7,21 @@ sub as_post_params {
         defined($v) ? ($_ => $v) : ()
     } keys %{$self->req_map};
     return %arguments;
-    $arguments{host_key} = $self->host_key;
 }
+
+sub BUILD {
+    my ( $self ) = @_;
+
+    if ( $ENV{'CLOUDFLARE_TRACE'} ) {
+        my %args = $self->as_post_params;
+        print STDERR "<<< BEGIN CLOUDFLARE TRACE >>>\n";
+        print STDERR "\t<- API Call (" . $self. ")\n";
+        for my $key ( keys %args ) {
+            print STDERR "\t\t$key => \t" . $args{$key} . "\n";
+        }
+        print STDERR "\t\t--- OMMITED HOST KEY ----\n";
+        print STDERR "<<< END   CLOUDFLARE TRACE >>>\n";
+    }
+}
+
 1;
