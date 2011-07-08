@@ -5,7 +5,7 @@ use WebService::CloudFlare::Host;
 use Data::Dumper;
 
 my $CF = WebService::CloudFlare::Host->new(
-    host_key => '53796d4b617420205761732020486572652e2e2e',
+    host_key => '53796d4b617420205761732020486572',
 );
 
 my $this = eval { $CF->call('UserCreate',

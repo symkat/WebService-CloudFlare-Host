@@ -4,22 +4,17 @@ with 'WebService::CloudFlare::Host::Role::Response';
 
 sub res_map {
     return (
-        'result'        => 'result',
-        'msg'           => 'msg',
-        'action'        => 'request:act',
         'email'         => 'response:cloudflare_email',
         'user_key'      => 'response:user_key',
         'unique_id'     => 'response:unique_id',
-        'username'      => 'response:cloudflare_username',
+        'api_key'       => 'response:user_api_key',
     );
 }
 
+has [qw/ unique_id /] 
+    => ( is => 'rw', isa => 'Str|Undef', required => 0 );
 
-
-has [qw/ result action /] 
-    => ( is => 'rw', isa => 'Str', required => 1 );
-
-has [qw/ msg email user_key unique_id username /] 
+has [qw/ email user_key api_key /] 
     => ( is => 'rw', isa => 'Str', required => 0 );
 
 1;

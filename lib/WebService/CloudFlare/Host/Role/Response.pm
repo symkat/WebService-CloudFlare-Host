@@ -12,7 +12,9 @@ sub BUILDARGS {
 
     my $json = decode_json( $http->content );
     my %map = $class->res_map;
-    my $args = {};
+    my $args = { __JSON__ => $json };
+
+    %map = __PACKAGE__->add_map_defaults( %map );
 
     OUTER: for my $key ( keys %map ) {
         my ( @elems ) = split( ":", $map{$key} );
@@ -25,6 +27,34 @@ sub BUILDARGS {
         #$self->$key($tmp_json);
     }
     return $args;
+}
+
+sub BUILD {
+    my ( $self ) = @_;
+    if ( ! $ENV{'CLOUDFLARE_TRACE'} ) {
+        $self->unset_json;
+    }
+}
+
+has '__JSON__' => ( 
+    is => 'ro', 
+    required => 1, 
+    clearer => 'unset_json' 
+);
+
+has [qw/ result action /] => ( is => 'rw', isa => 'Str', required => 1 );
+
+has 'code' => ( is => 'ro', isa => 'Int', required => 0 );
+
+sub add_map_defaults {
+    my ( $class, %map ) = @_;
+
+    $map{'msg'}         = 'msg';
+    $map{'action'}      = 'request:act',
+    $map{'code'}        = 'err_code',
+    $map{'result'}      = 'result',
+
+    return %map;
 }
 
 1;
