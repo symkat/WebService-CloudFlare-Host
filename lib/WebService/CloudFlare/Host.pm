@@ -41,7 +41,7 @@ sub call {
     try {
         Class::MOP::load_class("WebService::CloudFlare::Host::Request::$class");
     } catch {
-        $self->throw_exception( $_, "Loading request class: $class", 
+        $self->_throw_exception( $_, "Loading request class: $class", 
             "Class::MOP::load_class", 
             "WebService::CloudFlare::Host::Request::$class"
         );
@@ -51,7 +51,7 @@ sub call {
     my $req = try {
         "WebService::CloudFlare::Host::Request::$class"->new( %args )
     } catch {
-        $self->throw_exception( $_, 'Creating API Request',
+        $self->_throw_exception( $_, 'Creating API Request',
             "WebService::CloudFlare::Host::Request::$class", Dumper \%args
         );
     };
@@ -60,7 +60,7 @@ sub call {
     my $http_res = try {
         $self->_do_call( $req );
     } catch {
-        $self->throw_exception( $_, 'Making HTTP Call To Server API',
+        $self->_throw_exception( $_, 'Making HTTP Call To Server API',
             'WebService::CloudFlare::Host::do_call', Dumper $req
         );
     };
@@ -69,14 +69,14 @@ sub call {
     my $res = try {
         $self->_create_response( $class, $http_res );
     } catch {
-        $self->throw_exception( $_, 'Creating API Response From HTTP Data',
+        $self->_throw_exception( $_, 'Creating API Response From HTTP Data',
             'WebService::CloudFlare::Host::create_response', Dumper $http_res,
         );
     };
     return $res;
 }
 
-sub throw_exception {
+sub _throw_exception {
     my ( $self, $message, $layer, $function, $args ) = @_;
 
     # We installed ::Exception with the package, it's here.
@@ -114,7 +114,7 @@ sub _create_response {
     try {
         Class::MOP::load_class("WebService::CloudFlare::Host::Response::$class");
     } catch {
-        $self->throw_exception( $_, "Loading request class: $class", 
+        $self->_throw_exception( $_, "Loading request class: $class", 
             "Class::MOP::load_class", 
             "WebService::CloudFlare::Host::Reponse::$class"
         );
