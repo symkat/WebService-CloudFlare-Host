@@ -48,7 +48,7 @@ has '__JSON__' => (
 );
 
 has [qw/ result action /] => ( is => 'rw', isa => 'Str', required => 1 );
-has [qw/ msg code /]      => ( is => 'rw', isa => 'Str', required => 0 );
+has [qw/ msg code /]      => ( is => 'rw', isa => 'Str|Undef', required => 0 );
 
 sub add_map_defaults {
     my ( $class, %map ) = @_;
