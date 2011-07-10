@@ -1,6 +1,12 @@
 package WebService::CloudFlare::Host::Response::ZoneDelete;
 use Moose;
+use Moose::Util::TypeConstraints;
 with 'WebService::CloudFlare::Host::Role::Response';
+use Data::Dumper;
+
+# Oh, decode_json, how silly you can be.
+subtype 'json_bool' => as 'Int';
+coerce  'json_bool', from 'Object', via { $_ ? 1 : 0 };
 
 sub res_map {
     return (
@@ -12,12 +18,16 @@ sub res_map {
     );
 }
 
-
-
+# Strings (Required)
 has [qw/ result action /] 
     => ( is => 'rw', isa => 'Str', required => 1 );
 
-has [qw/ msg zone_name zone_deleted /] 
+# Strings (Not Required)
+has [qw/ zone_name  /] 
     => ( is => 'rw', isa => 'Str', required => 0 );
+
+# JSON boolean values, coerced into 1|0 (Not Required)
+has [qw/ zone_deleted /]
+    => ( is => 'ro', isa => 'json_bool', coerce => 1, required => 0 );
 
 1;
