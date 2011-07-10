@@ -21,10 +21,13 @@ sub res_map {
 has [qw/ result action /] 
     => ( is => 'rw', isa => 'Str', required => 1 );
 
-has [qw/ msg unique_id user_exists cloudflare_email user_authed user_key  /] 
-    => ( is => 'rw', isa => 'Str', required => 0 );
+has [qw/ unique_id cloudflare_email user_key  /] 
+    => ( is => 'rw', isa => 'Str|Undef', required => 0 );
 
 has [qw/ zones /]
-    => ( is => 'rw', isa => 'ArrayRef[Str]', required => 0 );
+    => ( is => 'rw', isa => 'ArrayRef[Str]|Undef', required => 0 );
+
+has [qw/ user_exists user_authed /]
+    => ( is => 'rw', isa => 'json_bool', required => 1, coerce => 1 );
 
 1;
