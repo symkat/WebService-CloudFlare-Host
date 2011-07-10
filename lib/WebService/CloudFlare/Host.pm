@@ -102,20 +102,11 @@ sub throw_exception {
 sub _do_call {
     my ( $self, $request ) = @_;
     
-    #my %arguments = map { my $v = $request->{$request->map->{$_}}; 
-    #    defined($v) ? ($_ => $v) : ()
-    #} keys %{$request->map};
     my %arguments = $request->as_post_params;
     $arguments{host_key} = $self->host_key;
 
-    return $self->_http_post( $self->base_api, \%arguments );
+    return $self->ua->post($self->base_api, \%arguments);
 }
-
-sub _http_post {
-    my ( $self, $url, $post_data ) = @_;
-    my $res = $self->ua->post( $url, $post_data );
-    return $res;
-}  
 
 sub _create_response {
     my ( $self, $class, $http ) = @_;
