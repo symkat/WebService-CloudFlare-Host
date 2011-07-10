@@ -11,19 +11,26 @@ sub res_map {
         'zone_exists'   => 'response:zone_exists',
         'zone_hosted'   => 'response:zone_hosted',
         'hosted'        => 'response:hosted_cnames',
-        'forward'       => 'response:forward_tos',
+        'forwarded'     => 'response:forward_tos',
     );
 }
 
 
 
+# Strings (Required)
 has [qw/ result action /] 
     => ( is => 'rw', isa => 'Str', required => 1 );
 
-has [qw/ msg zone_name zone_exists zone_hosted  /] 
+# Strings (Not Required)
+has [qw/ zone_name  /] 
     => ( is => 'rw', isa => 'Str', required => 0 );
 
-has [qw/ hosted forward /]
-    => ( is => 'rw', isa => 'HashRef[Str]', required => 0 );
+# HashRefs (Not Required)
+has [qw/ hosted forwarded /]
+    => ( is => 'rw', isa => 'HashRef[Str]|Undef', required => 0 );
+
+# JSON boolean values, coerced into 1|0 (Not Required)
+has [qw/ zone_exists zone_hosted /]
+    => ( is => 'ro', isa => 'json_bool', required => 0, coerce => 1 );
 
 1;

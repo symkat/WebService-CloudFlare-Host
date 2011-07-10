@@ -4,9 +4,6 @@ use Moose::Util::TypeConstraints;
 with 'WebService::CloudFlare::Host::Role::Response';
 use Data::Dumper;
 
-# Oh, decode_json, how silly you can be.
-subtype 'json_bool' => as 'Int';
-coerce  'json_bool', from 'Object', via { $_ ? 1 : 0 };
 
 sub res_map {
     return (

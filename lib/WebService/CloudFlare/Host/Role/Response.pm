@@ -2,6 +2,7 @@ package WebService::CloudFlare::Host::Role::Response;
 use Moose::Role;
 use JSON;
 use Data::Dumper;
+use Moose::Util::TypeConstraints;
 
 requires 'res_map';
 
@@ -40,6 +41,10 @@ sub BUILD {
     }
     $self->unset_json;
 }
+
+# Oh, decode_json, how silly you can be.
+subtype 'json_bool' => as 'Int';
+coerce  'json_bool', from 'Object', via { $_ ? 1 : 0 };
 
 has '__JSON__' => ( 
     is => 'ro', 
