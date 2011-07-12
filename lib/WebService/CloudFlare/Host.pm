@@ -133,3 +133,41 @@ sub _build_ua {
 }
 
 1;
+
+=head1 NAME
+
+WebService::CloudFlare::Host - 
+
+=head1 VERSION
+
+=head1 SYNOPSIS
+
+=head1 DESCRIPTION
+
+=head1 API CALLS
+
+=head2 UserCreate
+
+=head2 UserAuth
+
+=head2 UserLookup
+
+=head2 ZoneCreate
+
+=head2 ZoneDelete
+
+=head2 ZoneLookup
+
+=head1 CREATING API CALLS
+
+=head2 Request Classes
+
+=head2 Response Classes
+
+=head1 AUTHOR
+
+=head1 COPYRIGHT AND LICENSE
+
+=head1 AVAILABILITY
+
+=cut
